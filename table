@@ -1,0 +1,63 @@
+-- Create database
+CREATE DATABASE HealthcareDB;
+
+-- Use the created database
+USE HealthcareDB;
+
+-- Create Patients table
+CREATE TABLE Patients (
+    PatientID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    DateOfBirth DATE NOT NULL,
+    Gender VARCHAR(10),
+    PhoneNumber VARCHAR(15)
+);
+
+-- Create Appointments table
+CREATE TABLE Appointments (
+    AppointmentID INT AUTO_INCREMENT PRIMARY KEY,
+    PatientID INT,
+    AppointmentDate DATETIME,
+    Doctor VARCHAR(50),
+    Department VARCHAR(50),
+    Status VARCHAR(20),
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+-- Create HealthRecords table
+CREATE TABLE HealthRecords (
+    RecordID INT AUTO_INCREMENT PRIMARY KEY,
+    PatientID INT,
+    RecordDate DATETIME,
+    Height FLOAT,
+    Weight FLOAT,
+    BloodPressure VARCHAR(10),
+    Diagnosis TEXT,
+    Treatment TEXT,
+    FOREIGN KEY (PatientID) REFERENCES Patients(PatientID)
+);
+
+-- Insert sample data into Patients table
+INSERT INTO Patients (FirstName, LastName, DateOfBirth, Gender, PhoneNumber) VALUES
+('John', 'Doe', '1985-04-12', 'Male', '123-456-7890'),
+('Jane', 'Smith', '1990-06-23', 'Female', '098-765-4321');
+
+-- Insert sample data into Appointments table
+INSERT INTO Appointments (PatientID, AppointmentDate, Doctor, Department, Status) VALUES
+(1, '2024-07-10 10:30:00', 'Dr. Adams', 'Cardiology', 'Scheduled'),
+(2, '2024-07-11 11:00:00', 'Dr. Brown', 'Neurology', 'Completed');
+
+-- Insert sample data into HealthRecords table
+INSERT INTO HealthRecords (PatientID, RecordDate, Height, Weight, BloodPressure, Diagnosis, Treatment) VALUES
+(1, '2024-07-01 09:00:00', 175.3, 70.5, '120/80', 'Hypertension', 'Medication prescribed'),
+(2, '2024-07-02 10:00:00', 165.0, 65.0, '110/70', 'Migraine', 'Lifestyle changes recommended');
+
+-- Select data from Patients table
+SELECT * FROM Patients;
+
+-- Select data from Appointments table
+SELECT * FROM Appointments;
+
+-- Select data from HealthRecords table
+SELECT * FROM HealthRecords;
